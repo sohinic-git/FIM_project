@@ -1,18 +1,20 @@
 import pandas as pd 
 import numpy as np
 import scipy as stats
+import random
 
 
 
-np.random.seed(42)
+rng = np.random.default_rng(seed = 42)
+
 np.set_printoptions(suppress=True)
 
 
 ##Generate Baseline logs
 
-baseline_hits = np.random.randint(2, 20, size = 40)
+baseline_hits = rng.integers(2, 20, size = 40)
 
-payloads_test = ((baseline_hits * np.random.randint(10, size=40)) +np.random.gamma(shape = 2, scale = 1, size = 40))
+payloads_test = ((baseline_hits * rng.uniform(size=40)) +rng.gamma(shape = 2, scale = 1, size = 40))
 
 baseline_df = pd.DataFrame( {
     'API_hits' : baseline_hits,
@@ -29,11 +31,11 @@ clean_fim_matrix = np.linalg.inv(cov_matrix)
 #Generate Attacker logs
 
 
-attacker_hits = np.random.randint(2, 10, size = 10)
+attacker_hits = rng.integers(2, 10, size = 10)
 
-rng = np.random.default_rng()
 
-payloads_test_attacker = ((28 * rng.random(size=10)))
+
+payloads_test_attacker = ((28 * rng.uniform(size=10)))
 attcker_df = pd.DataFrame( {
     'API_hits' : attacker_hits,
     'payloads_test' : payloads_test_attacker 
@@ -99,12 +101,10 @@ print("Anomalous Fim Matrix Determinant: ")
 anon_det = np.linalg.det(attack_fim_matrix)
 print(anon_det)
 
-scale = 100000
-scaled_det_c = clean_det * scale
-scaled_det_anon = anon_det * scale
 
 
-info_change = (((scaled_det_anon - scaled_det_c)/scaled_det_c) * 100)
+
+info_change = (((anon_det - clean_det)/clean_det) * 100)
 
 print(f'Information Vol change: {info_change:.2f}%')
 
