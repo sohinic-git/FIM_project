@@ -14,7 +14,11 @@ np.set_printoptions(suppress=True)
 
 baseline_hits = rng.integers(2, 20, size = 40)
 
+##Gamma Noise
 payloads_test = ((baseline_hits * rng.uniform(size=40)) +rng.gamma(shape = 2, scale = 1, size = 40))
+
+##LogNormal Noise
+#payloads_test = ((baseline_hits * rng.uniform(size=40)) +rng.lognormal(mean=0, sigma = 0.5, size = 40))
 
 baseline_df = pd.DataFrame( {
     'API_hits' : baseline_hits,
@@ -107,4 +111,3 @@ print(anon_det)
 info_change = (((anon_det - clean_det)/clean_det) * 100)
 
 print(f'Information Vol change: {info_change:.2f}%')
-
