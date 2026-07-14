@@ -35,11 +35,11 @@ clean_fim_matrix = np.linalg.inv(cov_matrix)
 #Generate Attacker logs
 
 
-attacker_hits = rng.integers(2, 10, size = 10)
+attacker_hits = rng.integers(2, 10, size = 5)
 
 
 
-payloads_test_attacker = ((28 * rng.uniform(size=10)))
+payloads_test_attacker = ((28 * rng.uniform(size=5)))
 attcker_df = pd.DataFrame( {
     'API_hits' : attacker_hits,
     'payloads_test' : payloads_test_attacker 
@@ -48,7 +48,7 @@ attcker_df = pd.DataFrame( {
 
 ##Evasion
 
-compromised_df = pd.concat( [baseline_df[0:30], attcker_df],ignore_index=True)
+compromised_df = pd.concat( [baseline_df[0:35], attcker_df],ignore_index=True)
 
 compromised_df = compromised_df.sample(frac=1).reset_index(drop=True)
 
