@@ -98,16 +98,15 @@ print("Clean Fim Matrix Determinant: ")
 
 clean_det = np.linalg.det(clean_fim_matrix)
 
-print(clean_det)
+clean_det_s = np.sqrt(clean_det)
 
 print("Anomalous Fim Matrix Determinant: ")
 
 anon_det = np.linalg.det(attack_fim_matrix)
-print(anon_det)
+anon_det_s = np.sqrt(anon_det)
 
 
 
-
-info_change = (((anon_det - clean_det)/clean_det) * 100)
+info_change = (((anon_det_s - clean_det_s)/clean_det_s) * 100)
 
 print(f'Information Vol change: {info_change:.2f}%')
